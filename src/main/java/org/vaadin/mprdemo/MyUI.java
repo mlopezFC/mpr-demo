@@ -1,12 +1,13 @@
 package org.vaadin.mprdemo;
 
+import javax.servlet.annotation.WebInitParam;
+import javax.servlet.annotation.WebServlet;
 import com.vaadin.annotations.Push;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.HasElement;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -16,7 +17,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.router.RouterLink;
-
+import com.vaadin.flow.server.VaadinServlet;
 import com.vaadin.mpr.core.LegacyUI;
 import com.vaadin.mpr.core.MprTheme;
 import com.vaadin.server.VaadinSession;
@@ -80,4 +81,7 @@ public class MyUI extends AppLayout implements RouterLayout {
 		childWrapper.getElement().appendChild(content.getElement());
 	}
 
+	@WebServlet(urlPatterns = "/*", name = "myservlet", asyncSupported = true,
+			initParams = {@WebInitParam(name = "heartbeatInterval", value = "5")})
+	public static class MyServlet extends VaadinServlet {}
 }
